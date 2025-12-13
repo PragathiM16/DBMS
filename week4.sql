@@ -76,6 +76,12 @@ b.branch_city='Delhi'
 GROUP BY d.customer_name
 HAVING COUNT(distinct b.branch_name)=(SELECT COUNT(branch_name)FROM branch
 WHERE branch_city='Delhi');
+
+
+
+select distinct customer_name from borrower where customer_name not in(select customer_name from depositer);
+
+
 Select customer_name
 From Borrower ,loan 
 Where borrower.loan_number=loan.loan_number
@@ -84,8 +90,12 @@ from depositer, bankaccount
 where depositer.accno = bankaccount.accno And bankaccount.branch_name in
  (Select branch_name from branch WHERE branch.branch_city='Bangalore')); 
  
+ 
+ 
  Select branch_name From Branch
 Where assets>(Select Sum(assets) from branch Where branch_city='Bangalore');
+
+
 
 DELETE FROM bankaccount WHERE branch_name IN(SELECT branch_name FROM branch WHERE branch_city='Bombay');
 delete from depositer
@@ -95,8 +105,6 @@ where accno in
  where branch_city = 'Bombay'
  and branch.branch_name = bankaccount.branch_name);
 
-update bankaccount
-set balance = balance * 1.05;
-select * from bankaccount;
 
+Update BankAccount set Balance=Balance+Balance*0.05;
              
